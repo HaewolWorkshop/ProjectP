@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.Events;
 
 namespace HaewolWorkshop
 {
@@ -13,7 +15,10 @@ namespace HaewolWorkshop
         // TODO 플레이어를 싱글톤 접근으로 수정
         private Player player;
         public Player Player => player;
+        
+        // Components
         public Rigidbody Rigidbody { get; private set; }
+        public NavMeshAgent Agent { get; private set; }
 
         protected virtual void Awake()
         {
@@ -21,50 +26,51 @@ namespace HaewolWorkshop
             player = FindObjectOfType<Player>();
 
             Rigidbody = GetComponent<Rigidbody>();
+            Agent = GetComponent<NavMeshAgent>();
+
+            if (Agent)
+            {
+                Agent.speed = Data.MoveSpeed;
+                Agent.angularSpeed = Data.RotationSpeed;
+            }
+            // 기본적으로 Rigidbody 자체 연산은 사용하지 않고 NavMeshAgent 만 사용
+            Rigidbody.isKinematic = true;
         }
 
-
-        // 기본적인 움직임 로직: 
+        // 기본적인 움직임: NavMeshAgent
         private Vector3 moveTarget;
-        private bool doMove = false;
         public Vector3 MoveTarget
         {
-            get => moveTarget;
+            get => Agent.destination;
             set
             {
-                moveTarget = value;
-                doMove = true;
+                Agent.destination = value;
+                IsStopped = false;
             }
         }
-        public void StopMove() => doMove = false;
+
+        public bool IsStopped
+        {
+            get => Agent.isStopped;
+            set => Agent.isStopped = value;
+        }
 
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            
-            MoveToTarget();
         }
 
-        protected virtual void MoveToTarget()
+        public UnityAction OnDeathEvent { get; set; }
+
+        protected virtual void OnDeath()
         {
-            var t = transform;
-            var currentPosition = t.position;
-            var targetPosition = moveTarget;
+            OnDeathEvent?.Invoke();
 
-            var toTarget = targetPosition - currentPosition;
-            var isMoving = toTarget.sqrMagnitude > 0f && doMove;
-
-            if (!isMoving)
+            if (Agent)
             {
-                return;
+                Agent.enabled = false;
             }
-
-            var direction = toTarget;
-            direction.y = 0f; direction.Normalize();
-
-            var dt = Time.deltaTime;
-            Rigidbody.MovePosition(currentPosition + direction * (Data.MoveSpeed * dt));
-            Rigidbody.MoveRotation(Quaternion.Slerp(Rigidbody.rotation, Quaternion.LookRotation(direction), Data.RotationSpeed * dt));
+            Rigidbody.isKinematic = false;
         }
     }
 }
