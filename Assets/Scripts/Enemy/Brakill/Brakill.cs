@@ -1,28 +1,27 @@
-using System;
 using UnityEngine;
 
 namespace HaewolWorkshop
 {
-    public class DummyEnemy : Enemy<DummyEnemy, DummyEnemyData>, IWanderable
+    public class Brakill : Enemy<Brakill, BrakillData>, IWanderable
     {
-        public enum DummyEnemyState : int
+        public enum BrakillStates : int
         {
             Idle,
             Wander,
             
             Max
         }
-        [field: SerializeField] public override DummyEnemyData Data { get; protected set; }
-
+        [field: SerializeField] public override BrakillData Data { get; protected set; }
+        
         [field: SerializeField] public EnemyWanderType WanderType { get; set; }
         [field: SerializeField] public EnemyWanderSpots WanderSpots { get; set; }
-
+        
         protected override void Awake()
         {
             base.Awake();
             
             // SetUp(DummyEnemyState.Idle); // TODO
-            SetUp(DummyEnemyState.Wander);
+            SetUp(BrakillStates.Wander);
         }
     }
 }

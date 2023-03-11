@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: DummyEnemy Data
   m_EditorClassIdentifier: 
   <MoveSpeed>k__BackingField: 5
-  <RotationSpeed>k__BackingField: 10
+  <RotationSpeed>k__BackingField: 100
