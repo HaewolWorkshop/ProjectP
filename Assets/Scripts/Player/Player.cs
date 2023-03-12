@@ -24,14 +24,10 @@ namespace HaewolWorkshop
         public Rigidbody rigidbody { get; private set; }
         public Animator animator { get; private set; }
 
+        public float moveSpeed = .0f;
 
         private void Awake()
         {
-            if (playerData == null || playerData.Length < 1)
-            {
-                Debug.LogError($"Player : {playerData.GetType()}이 존재하지 않습니다.");
-            }
-
             rigidbody = GetComponent<Rigidbody>();
             animator = GetComponent<Animator>();
             
