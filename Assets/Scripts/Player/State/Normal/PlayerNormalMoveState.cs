@@ -15,6 +15,10 @@ namespace HaewolWorkshop
         }
 
         #endregion
+
+        private readonly int animXParam = Animator.StringToHash("InputXParam");
+        private readonly int animZParam = Animator.StringToHash("InputZParam");
+
         
         // Key 등록은 여기서 -> Normal 에서 할 수 있는 행동
         
@@ -34,6 +38,8 @@ namespace HaewolWorkshop
         {
             base.FixedUpdateState();
             
+            ownerEntity.animator.SetFloat(animXParam, Mathf.Round(moveInput.x * 100f) / 100f);
+            ownerEntity.animator.SetFloat(animZParam, Mathf.Round(moveInput.y * 100f) / 100f);
         }
 
         public override void ClearState()
