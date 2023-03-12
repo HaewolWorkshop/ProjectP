@@ -21,9 +21,6 @@ namespace HaewolWorkshop
             // Henshin 
         }
         
-        // Index Table : 0 - Normal, 1 - Henshin  
-        public PlayerStatus[] playerData;
-
         public Rigidbody rigidbody { get; private set; }
         public Animator animator { get; private set; }
 
@@ -37,6 +34,8 @@ namespace HaewolWorkshop
 
             rigidbody = GetComponent<Rigidbody>();
             animator = GetComponent<Animator>();
+            
+            InitInputs();
             
             SetUp(States.NormalMove);
         }
