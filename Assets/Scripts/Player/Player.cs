@@ -9,13 +9,36 @@ namespace HaewolWorkshop
         public enum States : int
         {
             Global,
-
-            Move,
+            
+            // Normal 
+            NormalMove,
+            NormalJump,
+            NormalSprint,
+            NormalStealth
+            
+            // ETC
+            
+            // Henshin 
         }
+        
+        // Index Table : 0 - Normal, 1 - Henshin  
+        public PlayerStatus[] playerData;
+
+        public Rigidbody rigidbody { get; private set; }
+        public Animator animator { get; private set; }
+
 
         private void Awake()
         {
-            SetUp(States.Move);
+            if (playerData == null || playerData.Length < 1)
+            {
+                Debug.LogError($"Player : {playerData.GetType()}이 존재하지 않습니다.");
+            }
+
+            rigidbody = GetComponent<Rigidbody>();
+            animator = GetComponent<Animator>();
+            
+            SetUp(States.NormalMove);
         }
 
         protected override void Update()
