@@ -50,9 +50,7 @@ namespace HaewolWorkshop
             // 위쪽으로 raycast
             if (Physics.Raycast(position, Vector3.up, out var hitInfo, Data.MinimumDistanceToCeil, Data.CeilMask.value))
             {
-#if UNITY_EDITOR
                 Debug.DrawLine(position, hitInfo.point, Color.yellow);
-#endif
                 float distance = (hitInfo.point - position).magnitude;
                 // 최소거리 - 지형에 도달한 거리 == 충돌할 여지가 있는 거리
                 // 이를 BaseOffset에서 빼 줌
@@ -60,9 +58,7 @@ namespace HaewolWorkshop
             }
             else
             {
-#if UNITY_EDITOR
                 Debug.DrawRay(position, Vector3.up * Data.MinimumDistanceToCeil, Color.white);
-#endif
                 // 아니면 기본 base offset으로 설정
                 newOffset = initialBaseOffset;
             }
