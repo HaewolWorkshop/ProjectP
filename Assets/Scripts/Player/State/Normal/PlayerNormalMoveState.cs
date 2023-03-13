@@ -15,6 +15,7 @@ namespace HaewolWorkshop
         }
 
         #endregion
+        
 
         private readonly int animXParam = Animator.StringToHash("InputXParam");
         private readonly int animZParam = Animator.StringToHash("InputZParam");
@@ -26,11 +27,7 @@ namespace HaewolWorkshop
         {
             base.InitializeState();
             
-        }
-
-        public override void UpdateState()
-        {
-            base.UpdateState();
+            ownerEntity.SetAction(Player.ButtonActions.Jump, OnClimb);
             
         }
 
@@ -46,7 +43,16 @@ namespace HaewolWorkshop
         {
             base.ClearState();
             
+            // 테스트용이라 Jump에 묶어둠
+            ownerEntity.ClearAction((Player.ButtonActions.Jump));
         }
-        
+
+        private void OnClimb(bool isOn)
+        {
+            if (isOn)
+            {
+                ownerEntity.ChangeState(Player.States.NormalClimb);
+            }
+        }
     }
 }
