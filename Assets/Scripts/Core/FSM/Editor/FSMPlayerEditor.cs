@@ -11,12 +11,6 @@ namespace HaewolWorkshop
     [CustomEditor(typeof(FSMPlayer<>), true)]
     public class FSMPlayerEditor : Editor
     {
-        private struct State
-        {
-            public int id;
-            public string name;
-        }
-
         private Type targetType = null;
 
         private int statePopupIndex = 0;
@@ -69,7 +63,6 @@ namespace HaewolWorkshop
             var ids = new List<int>();
             var names = new List<string>();
             SetStateList((dynamic)GetValue("states"), ids, names, currentStateName);
-
 
 
             EditorGUILayout.BeginVertical(EditorStyles.helpBox, GUILayout.Height(55));
