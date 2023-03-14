@@ -10,6 +10,9 @@ namespace HaewolWorkshop
             Idle,
             Wander,
             
+            Track,
+            Chase,
+            
             Max
         }
         [field: SerializeField] public override DummyEnemyData Data { get; protected set; }

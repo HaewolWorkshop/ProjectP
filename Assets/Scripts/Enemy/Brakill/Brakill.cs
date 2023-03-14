@@ -10,6 +10,9 @@ namespace HaewolWorkshop
             Idle,
             Wander,
             
+            Track,
+            Chase,
+            
             Max
         }
         [field: SerializeField] public override BrakillData Data { get; protected set; }
