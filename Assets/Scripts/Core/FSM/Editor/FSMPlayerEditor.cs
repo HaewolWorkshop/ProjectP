@@ -20,14 +20,23 @@ namespace HaewolWorkshop
         private Type targetType = null;
 
         private int statePopupIndex = 0;
+        private string currentStateName = "";
 
-        private void Awake()
+
+        protected void OnEnable()
         {
+            SceneView.duringSceneGui += this.OnSceneGUI;
+
             targetType = target.GetType();
             while (targetType.BaseType != typeof(MonoBehaviour))
             {
                 targetType = targetType.BaseType;
             }
+        }
+
+        protected void OnDisable()
+        {
+            SceneView.duringSceneGui -= this.OnSceneGUI;
         }
 
         public override void OnInspectorGUI()
@@ -39,6 +48,13 @@ namespace HaewolWorkshop
             base.OnInspectorGUI();
         }
 
+        private void OnSceneGUI(SceneView sceneView)
+        {
+            var transform = ((MonoBehaviour)target).transform;
+            Handles.Label(transform.position + Vector3.up, currentStateName);
+        }
+
+
         private void ShowStateInfo()
         {
             if (!Application.isPlaying)
@@ -46,7 +62,7 @@ namespace HaewolWorkshop
                 return;
             }
 
-            var currentStateName = GetTypeName(GetValue("currentState"));
+            currentStateName = GetTypeName(GetValue("currentState"));
             var previousStateName = GetTypeName(GetValue("previousState"));
             var globalStateName = GetTypeName(GetValue("globalState"));
 
@@ -55,11 +71,23 @@ namespace HaewolWorkshop
             SetStateList((dynamic)GetValue("states"), ids, names, currentStateName);
 
 
-            EditorGUILayout.LabelField($"GLOBAL : {globalStateName}");
+
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox, GUILayout.Height(55));
 
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField($"{previousStateName} -> ");
+            GUILayout.Label($"GLOBAL : ", EditorStyles.whiteLargeLabel, GUILayout.Width(100));
+            GUILayout.Label($"{globalStateName}", EditorStyles.largeLabel, GUILayout.ExpandWidth(false));
+            EditorGUILayout.EndHorizontal();
 
+            EditorGUILayout.BeginHorizontal();
+
+            GUILayout.Label("PreviousState : ", EditorStyles.whiteLargeLabel, GUILayout.Width(100));
+            GUILayout.Label($"{previousStateName}", EditorStyles.largeLabel, GUILayout.ExpandWidth(false));
+
+
+            GUILayout.Label("➜", EditorStyles.whiteLargeLabel, GUILayout.Width(20));
+
+            GUILayout.Label("CurrentState : ", EditorStyles.whiteLargeLabel, GUILayout.Width(100));
             int newValue = EditorGUILayout.Popup(statePopupIndex, names.ToArray());
 
             if (newValue != statePopupIndex)
@@ -69,9 +97,7 @@ namespace HaewolWorkshop
             }
 
             EditorGUILayout.EndHorizontal();
-
-
-
+            EditorGUILayout.EndVertical();
         }
 
         private object GetValue(string fieldName)
@@ -92,7 +118,6 @@ namespace HaewolWorkshop
             {
                 var name = GetTypeName(values[i]);
                 names.Add(name);
-
                 ids.Add(keys[i]);
 
                 if (name == currentStateName)
