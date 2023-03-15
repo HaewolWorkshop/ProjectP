@@ -27,6 +27,8 @@ namespace HaewolWorkshop
         public Rigidbody rigidbody { get; private set; }
         public Animator animator { get; private set; }
 
+        [SerializeField] private PlayerStatusData status;
+
         public float moveSpeed = .0f;
 
         private void Awake()
@@ -49,6 +51,11 @@ namespace HaewolWorkshop
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
+        }
+
+        public PlayerStatusData GetStatus()
+        {
+            return status;
         }
      
     }

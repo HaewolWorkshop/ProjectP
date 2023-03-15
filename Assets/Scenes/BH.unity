@@ -1148,19 +1148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eee51a9c73f5b54a8252fcb283b59af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  status: {fileID: 11400000, guid: b24cb547bcdf7e64bb3e4c0b6b02a96b, type: 2}
   moveSpeed: 5
-  _wallAngleMax: 5
-  _groundAngleMax: 60
-  _layerMaskClimb:
-    serializedVersion: 2
-    m_Bits: 2147483647
-  _overpassHeight: 1.8
-  _stepHeight: 0.25
-  _endOffset: {x: 0, y: 0, z: 0.2}
-  _climbOriginDown: {x: 0, y: 2.9, z: 0.3}
-  collider: {fileID: 2144490693}
-  endPosition: {x: 0, y: 0, z: 0}
-  _climbing: 0
 --- !u!136 &2144490693
 CapsuleCollider:
   m_ObjectHideFlags: 0
