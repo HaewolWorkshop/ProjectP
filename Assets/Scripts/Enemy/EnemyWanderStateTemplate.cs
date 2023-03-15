@@ -1,5 +1,6 @@
-using UnityEngine;
+using System;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace HaewolWorkshop
 {
@@ -16,17 +17,24 @@ namespace HaewolWorkshop
 
         private EnemyWanderSpots Spots => ownerEntity.WanderSpots;
         private NavMeshAgent Agent => ownerEntity.Agent;
-        
-        // https://answers.unity.com/questions/324589/how-can-i-tell-when-a-navmesh-has-reached-its-dest.html
-        protected bool IsDestinationReached()
+
+        public override void InitializeState()
         {
-            return !Agent.pathPending
-                   && Agent.remainingDistance <= Agent.stoppingDistance
-                   && (!Agent.hasPath || Agent.velocity.sqrMagnitude <= 0f);
+            base.InitializeState();
+
+            ownerEntity.OnSignalReactionEvent += OnSignal;
         }
 
+        protected abstract ValueType ChaseState { get; }
         public override void FixedUpdateState()
         {
+            // 시야 내 플레이어 존재 시 추적 시작
+            if (ownerEntity.IsPlayerInSight())
+            {
+                ownerEntity.ChangeState(ChaseState);
+                return;
+            }
+            
             // 방황 스팟 없으면 Idle 때 아무것도 안 함
             if (!Spots || !Spots.IsNotEmpty())
             {
@@ -53,7 +61,7 @@ namespace HaewolWorkshop
                 SetTargetSpot(nearestIndex);
             }
             // 현재 목표 스팟에 도달한 경우 && 스팟 갯수가 2개 이상인 경우
-            if (IsDestinationReached() && spotCount > 1)
+            if (ownerEntity.IsDestinationReached() && spotCount > 1)
             {
                 switch (ownerEntity.WanderType)
                 {
@@ -73,6 +81,13 @@ namespace HaewolWorkshop
             }
         }
 
+        public override void ClearState()
+        {
+            base.ClearState();
+            
+            ownerEntity.OnSignalReactionEvent -= OnSignal;
+        }
+
         private int currentWanderingTargetSpot = -1;
         private void SetTargetSpot(int index)
         {
@@ -85,6 +100,19 @@ namespace HaewolWorkshop
             }
             currentWanderingTargetSpot = index;
             ownerEntity.MoveTarget = Spots[index].position;
+        }
+
+        protected abstract ValueType TrackState { get; }
+        // 현재 상태에서 반응이 있었다면
+        protected virtual void OnSignal(SignalReaction reaction)
+        {
+            if (reaction.IsInvalid())
+            {
+                return;
+            }
+            // 갱신이 가능한 기척이라면
+            ownerEntity.currentTrackingSignalReaction = reaction;
+            ownerEntity.ChangeState(TrackState);
         }
     }
 }

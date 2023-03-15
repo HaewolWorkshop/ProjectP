@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace HaewolWorkshop
@@ -8,5 +9,8 @@ namespace HaewolWorkshop
         public BrakillWanderState(IFSMEntity entity) : base(entity)
         {
         }
+
+        protected override ValueType ChaseState => Brakill.BrakillStates.Chase;
+        protected override ValueType TrackState => Brakill.BrakillStates.Track;
     }
 }
