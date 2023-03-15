@@ -6,13 +6,9 @@ namespace HaewolWorkshop
 {
     public class PlayerMoveState : FSMState<Player>
     {
-        #region OwnerInterface
-
         public PlayerMoveState(IFSMEntity owner) : base(owner)
         {
         }
-
-        #endregion
 
         public Vector2 moveInput;
         
@@ -21,15 +17,9 @@ namespace HaewolWorkshop
             ownerEntity.onMove = (x) => moveInput = x;
         }
 
-        public override void UpdateState()
-        {
-            
-        }
-
         public override void FixedUpdateState()
         {
-            // moveSpeed는 Player Data 연계시, 변경 예정
-            var velocity = new Vector3(moveInput.x, 0, moveInput.y) * ownerEntity.moveSpeed;
+            var velocity = new Vector3(moveInput.x, 0, moveInput.y);
             
             velocity.y = ownerEntity.rigidbody.velocity.y;
             ownerEntity.rigidbody.velocity = velocity;
@@ -37,8 +27,7 @@ namespace HaewolWorkshop
 
         public override void ClearState()
         {
-            
+            ownerEntity.onMove = null;
         }
-
     }
 }
