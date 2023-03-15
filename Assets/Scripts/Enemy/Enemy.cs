@@ -8,7 +8,7 @@ namespace HaewolWorkshop
     // <T : Enemy<T, TData>, TData : EnemyData>인 이유
     // - FSMPlayer<T>에 전달하기 위함
     // - EnemyData를 필수로 갖도록 하기 위함
-    public abstract partial class Enemy<T, TData> : FSMPlayer<T>, IFSMEntity, ISignalListener where T : Enemy<T, TData> where TData : EnemyData
+    public abstract class Enemy<T, TData> : FSMPlayer<T>, IFSMEntity, ISignalListener where T : Enemy<T, TData> where TData : EnemyData
     {
         public abstract TData Data { get; protected set; }
 
