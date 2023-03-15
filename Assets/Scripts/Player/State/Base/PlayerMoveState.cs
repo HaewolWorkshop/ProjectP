@@ -16,8 +16,6 @@ namespace HaewolWorkshop
 
         public Vector2 moveInput;
         
-        // 여기에서 상속받아서 Normal, Henshin 이동 가능하게 설정하기
-
         public override void InitializeState()
         {
             ownerEntity.onMove = (x) => moveInput = x;
