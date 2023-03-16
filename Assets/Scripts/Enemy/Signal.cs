@@ -23,17 +23,5 @@ namespace HaewolWorkshop
         public const int SilentLevel = 0;
         public const int NormalLevel = 1;
         public const int LoudLevel = 2;
-
-        public void SetPosition(Vector3 position)
-        {
-            this.position = position;
-        }
-        public void SetLevel(int level)
-        {
-            if (level is < 0 or > 2)
-                return;
-            
-            this.level = level;
-        }
     }
 }
