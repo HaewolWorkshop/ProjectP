@@ -26,7 +26,7 @@ namespace HaewolWorkshop
         
         public SignalGenerator signalGenerator { get; private set; }
 
-        [field:SerializeField] public PlayerStatusData status { get; private set; }
+        [field:SerializeField] public PlayerStatusData Status { get; private set; }
 
         private void Awake()
         {
