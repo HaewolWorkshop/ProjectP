@@ -59,6 +59,13 @@ namespace HaewolWorkshop
             isPlay = true;
         }
 
+        public void InitSignalData()
+        {
+            isPlay = false;
+            
+            signalData = Signal.Invalid;
+        }
+
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
