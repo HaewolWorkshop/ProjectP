@@ -1620,8 +1620,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eee51a9c73f5b54a8252fcb283b59af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  status: {fileID: 11400000, guid: b24cb547bcdf7e64bb3e4c0b6b02a96b, type: 2}
-  moveSpeed: 5
+  <status>k__BackingField: {fileID: 11400000, guid: b24cb547bcdf7e64bb3e4c0b6b02a96b,
+    type: 2}
 --- !u!136 &2144490693
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1669,8 +1669,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef4494e1cc1b6f4aa97ca98c02fbf10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  signalRange: 3
-  isPlay: 1
-  monsterLayer:
+  targetLayer:
     serializedVersion: 2
     m_Bits: 64

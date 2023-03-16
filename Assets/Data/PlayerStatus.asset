@@ -18,9 +18,8 @@ MonoBehaviour:
   <NormalJumpPower>k__BackingField: 10
   <NormalStealthMoveSpeedMultiplier>k__BackingField: 0.8
   <NormalSprintMoveSpeedMultiplier>k__BackingField: 1.2
-  <NormalSignalDatas>k__BackingField:
-  - signalRange: 3
-    signalLevel: 1
+  NormalMoveSignalRange: 5
+  NormalMoveSignalLevel: 5
   <HenshinMoveSpeed>k__BackingField: 15
   <HenshinJumpPower>k__BackingField: 20
   <HenshinSprintMoveSpeedMultiplier>k__BackingField: 10

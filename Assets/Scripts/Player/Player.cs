@@ -26,7 +26,7 @@ namespace HaewolWorkshop
         
         public SignalGenerator signalGenerator { get; private set; }
 
-        [SerializeField] private PlayerStatusData status;
+        [field:SerializeField] public PlayerStatusData status { get; private set; }
 
         private void Awake()
         {
@@ -46,15 +46,5 @@ namespace HaewolWorkshop
             base.Update();
         }
 
-        protected override void FixedUpdate()
-        {
-            base.FixedUpdate();
-        }
-
-        public PlayerStatusData GetStatus()
-        {
-            return status;
-        }
-     
     }
 }

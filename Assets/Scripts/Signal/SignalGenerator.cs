@@ -7,67 +7,29 @@ namespace HaewolWorkshop
 {
     public class SignalGenerator : MonoBehaviour
     {
-        private Signal signalData = Signal.Invalid;
-
-        [SerializeField] private float signalRange = 3.0f;
-
-        // Player - Only true, Swing Object - Start on event execution.
-        [SerializeField] private bool isPlay = false;
-        
         [SerializeField] private LayerMask targetLayer;
 
-        private void Update()
-        {
-            if (isPlay)
-            {
-                signalData.position = transform.position;
-            }
-        }
-        private void FixedUpdate()
-        {
-            if (isPlay)
-            {
-                // Explore neighborhoods
-                SearchRadius();
-            }
-        }
+        private float signalRange = 3.0f;
 
-        private void SearchRadius()
+        public void Play(Signal data, float range)
         {
             // Collider Setting.
-            Collider[] listenerColliders = Physics.OverlapSphere(transform.position, signalRange, targetLayer);
+            Collider[] listenerColliders = Physics.OverlapSphere(data.position, range, targetLayer);
 
             // listenerColliders is not empty.
             if (listenerColliders.Length > 0)
             {
                 for (int count = 0; count < listenerColliders.Length; count++)
                 {
-                    if (listenerColliders[count].TryGetComponent(out ISignalListener listener) != null)
+                    if (listenerColliders[count].TryGetComponent(out ISignalListener listener))
                     {
-                        listener.OnSignal(signalData);
+                        listener.OnSignal(data);
                     }
                 }
             }
-        }
-
-        public void SetSignal(float range, int level)
-        {
-            if (range is < 0 or > 10 || level is < 0 or > 2)
-            {
-                return;
-            }
-            signalData.level = level;
+#if UNITY_EDITOR
             signalRange = range;
-
-            isPlay = true;
-        }
-
-        // Use in Close Method 
-        public void InitSignalData()
-        {
-            isPlay = false;
-            
-            signalData = Signal.Invalid;
+#endif
         }
 
 #if UNITY_EDITOR
