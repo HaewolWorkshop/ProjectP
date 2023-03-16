@@ -14,7 +14,7 @@ namespace HaewolWorkshop
         // Player - Only true, Swing Object - Start on event execution.
         [SerializeField] private bool isPlay = false;
         
-        [SerializeField] private LayerMask monsterLayer;
+        [SerializeField] private LayerMask targetLayer;
 
         private void Update()
         {
@@ -35,7 +35,7 @@ namespace HaewolWorkshop
         private void SearchRadius()
         {
             // Collider Setting.
-            Collider[] listenerColliders = Physics.OverlapSphere(transform.position, signalRange, monsterLayer);
+            Collider[] listenerColliders = Physics.OverlapSphere(transform.position, signalRange, targetLayer);
 
             // listenerColliders is not empty.
             if (listenerColliders.Length > 0)
