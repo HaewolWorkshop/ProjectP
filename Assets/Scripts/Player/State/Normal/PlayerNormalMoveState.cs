@@ -18,6 +18,9 @@ namespace HaewolWorkshop
         {
             base.FixedUpdateState();
 
+            var signal = new Signal(ownerEntity.Status.NormalMoveSignalLevel, ownerEntity.transform.position);
+            ownerEntity.signalGenerator.Play(signal, ownerEntity.Status.NormalMoveSignalRange);
+
             ownerEntity.animator.SetFloat(animXParam, moveInput.x);
             ownerEntity.animator.SetFloat(animZParam, moveInput.y);
         }

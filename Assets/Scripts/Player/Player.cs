@@ -23,15 +23,16 @@ namespace HaewolWorkshop
         
         public Rigidbody rigidbody { get; private set; }
         public Animator animator { get; private set; }
+        
+        public SignalGenerator signalGenerator { get; private set; }
 
-        [SerializeField] private PlayerStatusData status;
-
-        public float moveSpeed = .0f;
+        [field:SerializeField] public PlayerStatusData Status { get; private set; }
 
         private void Awake()
         {
             rigidbody = GetComponent<Rigidbody>();
             animator = GetComponent<Animator>();
+            signalGenerator = GetComponent<SignalGenerator>();
             
             InitInputs();
             
@@ -45,15 +46,5 @@ namespace HaewolWorkshop
             base.Update();
         }
 
-        protected override void FixedUpdate()
-        {
-            base.FixedUpdate();
-        }
-
-        public PlayerStatusData GetStatus()
-        {
-            return status;
-        }
-     
     }
 }
