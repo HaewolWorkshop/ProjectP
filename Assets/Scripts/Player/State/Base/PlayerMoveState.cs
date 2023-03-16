@@ -14,12 +14,12 @@ namespace HaewolWorkshop
         
         public override void InitializeState()
         {
-            ownerEntity.onMove = (x) => moveInput = x;
+            ownerEntity.OnMove = (x) => moveInput = x;
         }
 
         public override void FixedUpdateState()
         {
-            var velocity = new Vector3(moveInput.x, 0, moveInput.y) * ownerEntity.GetStatus().NormalMoveSpeed;
+            var velocity = new Vector3(moveInput.x, 0, moveInput.y) * ownerEntity.status.NormalMoveSpeed;
             
             velocity.y = ownerEntity.rigidbody.velocity.y;
             ownerEntity.rigidbody.velocity = velocity;
@@ -27,8 +27,7 @@ namespace HaewolWorkshop
 
         public override void ClearState()
         {
-            ownerEntity.onMove = null;
-            ownerEntity.signalGenerator.InitSignalData();
+            ownerEntity.OnMove = null;
         }
     }
 }

@@ -29,10 +29,10 @@ namespace HaewolWorkshop
 
 
         // 벡터넘겨주는 액션은 따로 처리
-        public UnityAction<Vector2> onMove { get; set; }
+        public UnityAction<Vector2> OnMove { get; set; }
         private InputVector2Damper moveInputDamper = new InputVector2Damper();
 
-        public UnityAction<Vector2> onLook { get; set; }
+        public UnityAction<Vector2> OnLook { get; set; }
 
 
         private Dictionary<ButtonActions, InputAction> buttonActions;
@@ -101,8 +101,8 @@ namespace HaewolWorkshop
             var moveInput = moveInputDamper.getDampedValue(moveInputAction.ReadValue<Vector2>(), Time.deltaTime);
             var lookInput = lookInputAction.ReadValue<Vector2>();
 
-            onMove?.Invoke(moveInput);
-            onLook?.Invoke(lookInput);
+            OnMove?.Invoke(moveInput);
+            OnLook?.Invoke(lookInput);
         }
 
         private void OnEnable()
