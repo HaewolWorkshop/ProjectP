@@ -10,13 +10,20 @@ namespace HaewolWorkshop
     {
         private Signal signalData = Signal.Invalid;
 
-        private float signalRange = .0f;
+        [SerializeField] private float signalRange = 3.0f;
 
         // Player - Only true, Swing Object - Start on event execution.
         [SerializeField] private bool isPlay = false;
         
         [SerializeField] private LayerMask monsterLayer;
 
+        private void Update()
+        {
+            if (isPlay)
+            {
+                signalData.position = transform.position;
+            }
+        }
         private void FixedUpdate()
         {
             if (isPlay)
@@ -36,29 +43,28 @@ namespace HaewolWorkshop
             {
                 for (int count = 0; count < listenerColliders.Length; count++)
                 {
-                    if (listenerColliders[count].GetComponent<ISignalListener>() != null)
+                    if (listenerColliders[count].TryGetComponent(out ISignalListener listener) != null)
                     {
-                        ISignalListener signal = listenerColliders[count].GetComponent<ISignalListener>();
-                        signal.OnSignal(signalData);
+                        Debug.Log("SIGNAL IN");
+                        listener.OnSignal(signalData);
                     }
                 }
             }
         }
 
-        public void SetSignal(Vector3 pos, float range, int level)
+        public void SetSignal(float range, int level)
         {
             if (range is < 0 or > 10 || level is < 0 or > 2)
             {
                 return;
             }
-
-            signalData.position = pos;
             signalData.level = level;
             signalRange = range;
 
             isPlay = true;
         }
 
+        // Use in Close Method 
         public void InitSignalData()
         {
             isPlay = false;
