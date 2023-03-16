@@ -6,10 +6,10 @@ namespace HaewolWorkshop
     /// <summary>
     /// 기척 구조체
     /// </summary>
-    public struct Signal
+    public readonly struct Signal
     {
-        public int level;
-        public Vector3 position;
+        public readonly int level;
+        public readonly Vector3 position;
 
         public Signal(int level, Vector3 position)
         {
