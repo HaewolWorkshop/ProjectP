@@ -45,7 +45,7 @@ namespace HaewolWorkshop
             }
         }
 
-        public void OnPlay(Vector3 pos, float range, int level)
+        public void SetSignal(Vector3 pos, float range, int level)
         {
             if (range is < 0 or > 10 || level is < 0 or > 2)
             {
