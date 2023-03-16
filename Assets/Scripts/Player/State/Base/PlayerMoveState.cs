@@ -28,6 +28,7 @@ namespace HaewolWorkshop
         public override void ClearState()
         {
             ownerEntity.onMove = null;
+            ownerEntity.signalGenerator.InitSignalData();
         }
     }
 }

@@ -14,6 +14,11 @@ namespace HaewolWorkshop
         private readonly int animXParam = Animator.StringToHash("InputXParam");
         private readonly int animZParam = Animator.StringToHash("InputZParam");
 
+        public override void InitializeState()
+        {
+            SignalData signal = ownerEntity.GetStatus().NormalSignalDatas[0];
+            ownerEntity.signalGenerator.SetSignal(signal.signalRange, signal.signalLevel);
+        }
         public override void FixedUpdateState()
         {
             base.FixedUpdateState();
