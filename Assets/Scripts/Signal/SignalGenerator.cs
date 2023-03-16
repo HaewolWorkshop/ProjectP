@@ -45,7 +45,6 @@ namespace HaewolWorkshop
                 {
                     if (listenerColliders[count].TryGetComponent(out ISignalListener listener) != null)
                     {
-                        Debug.Log("SIGNAL IN");
                         listener.OnSignal(signalData);
                     }
                 }
