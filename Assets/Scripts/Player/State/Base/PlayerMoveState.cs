@@ -19,7 +19,7 @@ namespace HaewolWorkshop
 
         public override void FixedUpdateState()
         {
-            var velocity = new Vector3(moveInput.x, 0, moveInput.y) * ownerEntity.status.NormalMoveSpeed;
+            var velocity = new Vector3(moveInput.x, 0, moveInput.y) * ownerEntity.Status.NormalMoveSpeed;
             
             velocity.y = ownerEntity.rigidbody.velocity.y;
             ownerEntity.rigidbody.velocity = velocity;
