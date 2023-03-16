@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,13 +10,32 @@ namespace HaewolWorkshop
         public enum States : int
         {
             Global,
-
-            Move,
+            
+            // Normal 
+            NormalMove,
+            NormalJump,
+            NormalSprint,
+            NormalStealth,
+            // ETC
+            
+            // Henshin 
         }
+        
+        public Rigidbody rigidbody { get; private set; }
+        public Animator animator { get; private set; }
+
+        [SerializeField] private PlayerStatusData status;
+
+        public float moveSpeed = .0f;
 
         private void Awake()
         {
-            SetUp(States.Move);
+            rigidbody = GetComponent<Rigidbody>();
+            animator = GetComponent<Animator>();
+            
+            InitInputs();
+            
+            SetUp(States.NormalMove);
         }
 
         protected override void Update()
@@ -29,5 +49,11 @@ namespace HaewolWorkshop
         {
             base.FixedUpdate();
         }
+
+        public PlayerStatusData GetStatus()
+        {
+            return status;
+        }
+     
     }
 }
