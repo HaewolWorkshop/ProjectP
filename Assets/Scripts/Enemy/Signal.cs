@@ -6,10 +6,10 @@ namespace HaewolWorkshop
     /// <summary>
     /// 기척 구조체
     /// </summary>
-    public readonly struct Signal
+    public struct Signal
     {
-        public readonly int level;
-        public readonly Vector3 position;
+        public int level;
+        public Vector3 position;
 
         public Signal(int level, Vector3 position)
         {
@@ -23,5 +23,17 @@ namespace HaewolWorkshop
         public const int SilentLevel = 0;
         public const int NormalLevel = 1;
         public const int LoudLevel = 2;
+
+        public void SetPosition(Vector3 position)
+        {
+            this.position = position;
+        }
+        public void SetLevel(int level)
+        {
+            if (level is < 0 or > 2)
+                return;
+            
+            this.level = level;
+        }
     }
 }
