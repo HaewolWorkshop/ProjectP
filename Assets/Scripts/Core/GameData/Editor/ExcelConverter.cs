@@ -30,7 +30,7 @@ namespace HaewolWorkshop
                 string[] files = Directory.GetFiles(GameDataPath, $"*.xlsx");
                 foreach (string file in files)
                 {
-                    var filename = file.Split('\\', '.');
+                    var filename = file.Split('\\', '.', '/');
                     var name = filename[^2];
 
                     stopWatch.Start();
