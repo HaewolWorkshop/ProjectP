@@ -33,6 +33,11 @@ namespace HaewolWorkshop
                     var filename = file.Split('\\', '.', '/');
                     var name = filename[^2];
 
+                    if(name.StartsWith("~$"))
+                    {
+                        continue;
+                    }
+
                     stopWatch.Start();
                     Debug.Log($"Converting {name}...");
 
@@ -74,7 +79,7 @@ namespace HaewolWorkshop
 
             var columns = new List<string>();
 
-            using (var stream = new FileStream(excelFilePath, FileMode.Open))
+            using (var stream = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 var xssWorkbook = new XSSFWorkbook(stream);
                 ISheet sheet = xssWorkbook.GetSheetAt(0);
