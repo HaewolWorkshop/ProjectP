@@ -111,7 +111,7 @@ namespace HaewolWorkshop
 
                 // 나머지 행들을 돌아가며 데이터 가공
 
-                for (int rowNum = 1; rowNum < sheet.LastRowNum; rowNum++)
+                for (int rowNum = 1; rowNum <= sheet.LastRowNum; rowNum++)
                 {
                     var datas = new Dictionary<string, string>();
                     IRow row = sheet.GetRow(rowNum);
