@@ -30,8 +30,13 @@ namespace HaewolWorkshop
                 string[] files = Directory.GetFiles(GameDataPath, $"*.xlsx");
                 foreach (string file in files)
                 {
-                    var filename = file.Split('\\', '.');
+                    var filename = file.Split('\\', '.', '/');
                     var name = filename[^2];
+
+                    if(name.StartsWith("~$"))
+                    {
+                        continue;
+                    }
 
                     stopWatch.Start();
                     Debug.Log($"Converting {name}...");
@@ -74,7 +79,7 @@ namespace HaewolWorkshop
 
             var columns = new List<string>();
 
-            using (var stream = new FileStream(excelFilePath, FileMode.Open))
+            using (var stream = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 var xssWorkbook = new XSSFWorkbook(stream);
                 ISheet sheet = xssWorkbook.GetSheetAt(0);
@@ -106,7 +111,7 @@ namespace HaewolWorkshop
 
                 // 나머지 행들을 돌아가며 데이터 가공
 
-                for (int rowNum = 1; rowNum < sheet.LastRowNum; rowNum++)
+                for (int rowNum = 1; rowNum <= sheet.LastRowNum; rowNum++)
                 {
                     var datas = new Dictionary<string, string>();
                     IRow row = sheet.GetRow(rowNum);

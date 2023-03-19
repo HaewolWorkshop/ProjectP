@@ -15,6 +15,8 @@ namespace HaewolWorkshop
         [MenuItem("Build/빌드하기")]
         public static void Build()
         {
+            ExcelConverter.ConvertExcelToJson();
+            
             var stream = new FileStream(BuildSettingPath, FileMode.Open);
             var reader = new StreamReader(stream);
 
