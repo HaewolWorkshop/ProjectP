@@ -9,7 +9,7 @@
 
 >## 플레이 영상
 
-[![플레이 영상](https://img.youtube.com/vi/rm_n9llY40A/0.jpg)]([https://youtu.be/kGv8qahAMAo](https://www.youtube.com/watch?v=rm_n9llY40A))
+[![플레이 영상](https://img.youtube.com/vi/rm_n9llY40A/maxresdefault.jpg)](https://youtu.be/rm_n9llY40A)
 
 
 <br><br>
